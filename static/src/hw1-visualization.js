@@ -46,19 +46,19 @@ const monthlyBarChart = function (svg, data, countColumn, yLim, yAxisLabel,
         svg.append("text")
             .attr("x", 0) // position label at center of bar
             .attr("y", 0) // position label underneath bar
-            .attr("transform", `translate(${margin.left - 10 + centerX}, ${y}) rotate(90)`)
-            // .attr("transform", `rotate(90, ${centerX}, ${y})`)
-            // .attr("transform", `translate(${margin.left - 10}, 0)`)
+            .attr("transform", `translate(${margin.left - 10 + centerX}, ${y}) rotate(-90)`)
             .attr("dominant-baseline", "middle")
+            .attr("text-anchor", "end")
             .style("fill", xAxisTextColor)
             .style("font-weight", "bold")
             .style("font-size", 12)
             .text(d['Month'])
+
     })
 
     svg.append("text")
         .attr("transform", "rotate(-90)")
-        .attr("y", 3) // (margin.left / 2))
+        .attr("y", 3)
         .attr("x", 0 - (chartHeight / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")

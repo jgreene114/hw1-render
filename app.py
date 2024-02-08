@@ -7,6 +7,5 @@ app.wsgi_app = WhiteNoise(
     autorefresh=True
 )
 
-
 if __name__ == "__main__":
     app.run(threaded=True, port=5000)
