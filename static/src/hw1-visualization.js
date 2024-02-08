@@ -1,9 +1,9 @@
-const monthlyBarChart = function (svg, data, countColumn, yLim,
+const monthlyBarChart = function (svg, data, countColumn, yLim, yAxisLabel,
                                   barColorScale = "#000000",
                                   xAxisTextColor = "#000000",
                                   xTicks = 10,
                                   yAxisTickFormat = d3.format('.0f'),
-                                  marginLeft=40) {
+                                  marginLeft= 60) {
     let width = svg.attr("width");
     let height = svg.attr("height");
     let margin = {top: 10, bottom: 70, left: marginLeft, right: 10}
@@ -40,7 +40,7 @@ const monthlyBarChart = function (svg, data, countColumn, yLim,
             .attr("height", countScale(0) - countScale(d[countColumn]))
             .style("fill", typeof barColorScale === 'function' ? barColorScale(d[countColumn]) : barColorScale);
 
-
+        // adding x axis ticks (months)
         let centerX = monthScale(d['Month']) + monthScale.bandwidth() / 2
         let y = countScale(0) + 5
         svg.append("text")
@@ -55,6 +55,15 @@ const monthlyBarChart = function (svg, data, countColumn, yLim,
             .style("font-size", 12)
             .text(d['Month'])
     })
+
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 3) // (margin.left / 2))
+        .attr("x", 0 - (chartHeight / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .attr("font-size", ".8em")
+        .text(yAxisLabel)
 
 }
 
@@ -82,9 +91,9 @@ const requestData = async function () {
         .range(['#89a689', '#205d20', '#0f440f'])
 
 
-    monthlyBarChart(treeSvg, monthlyTrees, 'Count', 2000, treeColorScale, "#572a0e")
-    monthlyBarChart(tempSvg, monthlyWeather, 'Mean Avg Temperature Normal (°F)', 65, tempColorScale, null, null, "degrees", 30)
-    monthlyBarChart(rainSvg, monthlyWeather, 'Total Precipitation Normal (inches)', 5, rainColorScale, null, 5, null, 20)
+    monthlyBarChart(treeSvg, monthlyTrees, 'Count', 2000, "Trees Planted", treeColorScale, "#572a0e")
+    monthlyBarChart(tempSvg, monthlyWeather, 'Mean Avg Temperature Normal (°F)', 65, "Degrees (F°)", tempColorScale, null, null, "degrees", 50)
+    monthlyBarChart(rainSvg, monthlyWeather, 'Total Precipitation Normal (inches)', 5, "Precipitation (Inches)", rainColorScale, null, 5, null, 45)
 
 }
 
